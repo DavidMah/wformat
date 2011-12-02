@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'optparse'
-#require 'wall_builder.rb'
+require 'wall_builder.rb'
 
 options = {}
 
