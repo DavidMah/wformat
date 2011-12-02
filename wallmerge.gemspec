@@ -1,6 +1,7 @@
 Gem::Specification.new do |g|
   g.name = 'wallmerge'
-  g.version = '0.0.0'
+  g.version = '0.0.1'
+  g.executables << 'wallmerge'
   g.date = '2011-12-01'
   g.summary = "Wall Merge is a command line utility that allows you to take two wallpapers and horizontally mash them together for one really long wallpaper"
   g.description = ""
