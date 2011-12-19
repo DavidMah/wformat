@@ -5,7 +5,7 @@ require 'wall_builder'
 options = {}
 
 optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: wallmerge [options] image1 image2"
+  opts.banner = "Usage: wformat [options] image1 image2"
 
   opts.on('-h', '--help', 'Display This Screen') do
     puts opts.banner
