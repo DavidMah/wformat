@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'optparse'
-require 'wall_builder'
+require 'wall_interface'
 
 options = {}
 
@@ -15,5 +15,9 @@ end
 
 optparse.parse!
 
-wall_builder = WallBuilder.new
-wall_builder.make_wall(*ARGV)
+interface = WallInterface.new
+
+command   = ARGV.shift
+arguments = ARGV
+
+interface.send(command, *arguments)
