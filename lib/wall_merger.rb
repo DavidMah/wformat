@@ -25,17 +25,19 @@ class WallMerger
   def prepare_image(image_name, width_bound, height_bound)
     im = ImageList.new(image_name)
     scale_factor = get_scaled_size(im, width_bound, height_bound)
+    puts "scale factor #{scale_factor}"
     im.scale!(scale_factor)
   end
 
   # Returns a scale factor for the image with the given bounds
   def get_scaled_size(image, width_bound, height_bound)
-    width_multiplier = width_bound / image.columns
+    width_multiplier  = 1.0 * width_bound / image.columns
+    height_multiplier = 1.0 * height_bound / image.rows
 
     if image.rows * width_multiplier <= height_bound
       width_multiplier
     else
-      height_bound / image.rows
+      height_multiplier
     end
   end
 

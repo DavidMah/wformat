@@ -8,7 +8,8 @@ Gem::Specification.new do |g|
 
   g.authors  = ["David Mah", "Conner Stenerson"]
   g.email    = "mahhaha@gmail.com"
-  g.files    = ["lib/wformat.rb", "lib/wall_builder.rb"]
+  g.files    = ["lib/wformat.rb", "lib/wall_interface.rb",
+                "lib/wall_merger.rb"]
   g.homepage = "https://github.com/DavidMah/wformat"
   g.add_runtime_dependency 'rmagick', '~> 2.13'
 end
