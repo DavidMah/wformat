@@ -1,7 +1,10 @@
 require 'wall_merger.rb'
+require 'wall_scaler.rb'
 
 class WallInterface
-  def merge(arguments)
-    WallMerger.new.merge(*arguments)
+  BUILDERS = {"merge" => WallMerger,
+              "scale" => WallScaler}
+  def run(command, arguments)
+    BUILDERS[command].new.send(command, *arguments)
   end
 end

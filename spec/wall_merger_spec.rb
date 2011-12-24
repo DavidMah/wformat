@@ -6,14 +6,11 @@ def stub_size(im, width, height)
 end
 
 def setup(options = [])
-  @wall_merger.should_receive(:prepare_image).once.with("42", anything, anything).and_return(@im_one)
-  @wall_merger.should_receive(:prepare_image).once.with("39", anything, anything).and_return(@im_two)
-
   [@im_one, @im_two].each {|im| stub_size(im, 1920, 1200) }                      if options.include? 'images'
-  Image.should_receive(:new).once.with(3840, 1200).and_return(@target)           if options.include? 'size'
-  @wall_merger.should_receive(:place_onto).once.with(0, 0, @im_one, @target)    if options.include? 'place'
-  @wall_merger.should_receive(:place_onto).once.with(1920, 0, @im_two, @target) if options.include? 'place'
-  @target.should_receive(:write).once.with("42 and 39.jpg")                      if options.include? 'write'
+  @wall_merger.should_receive(:prepare_backdrop).once.with(1920, 1200, 1920, 1200).and_return(@target) if options.include? 'size'
+  @wall_merger.should_receive(:place_onto).once.with(0, 0, @im_one, @target)     if options.include? 'place'
+  @wall_merger.should_receive(:place_onto).once.with(1920, 0, @im_two, @target)  if options.include? 'place'
+  @wall_merger.should_receive(:save_image).once.with(@target, "42 and 39.jpg")    if options.include? 'write'
 end
 
 describe WallMerger do
@@ -23,6 +20,8 @@ describe WallMerger do
     @im_two = mock("im2")
     @target = mock("target")
     @wall_merger = WallMerger.new
+    @wall_merger.should_receive(:prepare_image).once.with("42", anything, anything).and_return(@im_one)
+    @wall_merger.should_receive(:prepare_image).once.with("39", anything, anything).and_return(@im_two)
   end
   describe "#merge" do
     it "should place two 1920x1200 images alongside each other" do
@@ -42,7 +41,7 @@ describe WallMerger do
 
     it "should use the client requested filename" do
       setup(['images', 'size', 'place'])
-      @target.should_receive(:write).once.with("garpley_title")
+      @wall_merger.should_receive(:save_image).once.with(@target, "garpley_title")
       @wall_merger.merge("42", "39", {'title' => "garpley_title"})
     end
 

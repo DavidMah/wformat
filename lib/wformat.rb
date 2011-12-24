@@ -33,20 +33,39 @@ optparse = OptionParser.new do |opts|
     options['height_two'] = height
   end
 
+  opts.on('--width=WIDTH', Integer, 'Monitor Width') do |width|
+    options['width'] = width
+  end
+
+  opts.on('--height=HEIGHT', Integer, 'Monitor Height') do |height|
+    options['height'] = height
+  end
+
   opts.on('--title=TITLE', "Output filename") do |title|
     options['title'] = title
+  end
+
+  opts.on('--trace', "Provide stack trace when error occurs") do
+    options['trace'] = true
   end
 end
 
 begin
   optparse.parse!
   help_message if ARGV.empty?
+
+  # parse command out from the arguments
   command   = ARGV.shift
   arguments = ARGV << options
 
   interface = WallInterface.new
-  interface.send(command, arguments)
+  interface.run(command, arguments)
 rescue => ex
+  if options['trace']
+    puts "#{ex.inspect}"
+  else
+    puts "There was an error! Add the --trace switch for the stack trace"
+  end
   puts opts_banner
   exit
 end

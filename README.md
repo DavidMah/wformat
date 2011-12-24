@@ -6,6 +6,7 @@ wallpapers
 ## Usage
 
 ### Merging Images
+
 Create a merged image:
 
 `wformat merge [IMAGE_ONE] [IMAGE_TWO]`
@@ -19,6 +20,21 @@ that using options
 Or give the merge your own output filename
 
 `wformat merge --title="turtles.jpg" [IMAGE_ONE] [IMAGE_TWO]`
+
+### Scaling images
+
+Create a scaled image:
+
+`wformat scale [IMAGE_ONE]`
+
+The default expected monitor screen is actually 1920x1200. Change
+that using options
+
+`wformat scale --width=1600 --height=1200 [IMAGE]`
+
+Or give the scaled result your own output filename
+
+`wformat scale --title="turtles.jpg" [IMAGE]`
 
 ## Dependencies
 
