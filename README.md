@@ -1,7 +1,12 @@
 # wformat
 
-wformat is a command line utility to format images as computer
-wallpapers
+wformat is a command line utility to organize collections of wallpapers
+
+For now, it can only reformat images into proper sizes(for dualmonitors
+too)
+
+Soon it will feature organization through renaming and the ability to 
+search for duplicates of images
 
 ## Usage
 

@@ -1,10 +1,17 @@
 Gem::Specification.new do |g|
   g.name        = 'wformat'
-  g.version     = '0.3.0'
+  g.version     = '0.3.1'
   g.executables << 'wformat'
-  g.date        = '2011-12-01'
-  g.summary     = "wformat is a command line utility to format images as computer wallpapers"
-  g.description     = "wformat is a command line utility to format images as computer wallpapers. It can horizontally merge two images together with the `merge` command, and it can scale an image to another size with the `scale` command"
+  g.date        = '2011-12-28'
+
+  g.summary     = "wformat is a command line utility to organize collections of wallpapers"
+
+  g.description =
+    %Q[wformat is a command line utility to organize collections of wallpapers\n
+    For now, it can only reformat images into proper sizes(for dualmonitors too)\n
+    \n
+    Soon it will feature organization through renaming and the ability to search for duplicates of images]
+
 
   g.authors  = ["David Mah"]
   g.email    = "mahhaha@gmail.com"
