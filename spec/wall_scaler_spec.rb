@@ -7,7 +7,9 @@ end
 
 def setup(options = [])
   stub_size(@image, 1920, 1200)                                                            if options.include? 'images'
-  @wall_scaler.should_receive(:prepare_backdrop).once.with(1920, 1200).and_return(@target) if options.include? 'size'
+  @wall_scaler.should_receive(:prepare_backdrop).once.with({'width'  => 1920,
+                                                            'height' => 1200,
+                                                            'color'  => 'black'}).and_return(@target) if options.include? 'size'
   @wall_scaler.should_receive(:place_onto).once.with(0, 0, @image, @target)                if options.include? 'place'
   @wall_scaler.should_receive(:save_image).once.with(@target, "42 scaled.jpg")             if options.include? 'write'
 end

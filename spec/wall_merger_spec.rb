@@ -7,9 +7,13 @@ end
 
 def setup(options = [])
   [@im_one, @im_two].each {|im| stub_size(im, 1920, 1200) }                      if options.include? 'images'
-  @wall_merger.should_receive(:prepare_backdrop).once.with(1920, 1200, 1920, 1200).and_return(@target) if options.include? 'size'
-  @wall_merger.should_receive(:place_onto).once.with(0, 0, @im_one, @target)     if options.include? 'place'
-  @wall_merger.should_receive(:place_onto).once.with(1920, 0, @im_two, @target)  if options.include? 'place'
+  @wall_merger.should_receive(:prepare_backdrop).once.with({'width_one'  => 1920,
+                                                            'width_two'  => 1920,
+                                                            'height_one' => 1200,
+                                                            'height_two' => 1200,
+                                                            'color'      => 'black'}).and_return(@target) if options.include? 'size'
+  @wall_merger.should_receive(:place_through).once.with(0,    0, 1920, 1200, @im_one, @target)    if options.include? 'place'
+  @wall_merger.should_receive(:place_through).once.with(1920, 0, 1920, 1200, @im_two, @target) if options.include? 'place'
   @wall_merger.should_receive(:save_image).once.with(@target, "42 and 39.jpg")    if options.include? 'write'
 end
 
@@ -33,9 +37,13 @@ describe WallMerger do
     it "should place two 1000x1000 images alongside each other" do
       setup(['write'])
       [@im_one, @im_two].each { |im| stub_size(im, 1000, 1000) }
-      Image.should_receive(:new).once.with(2000, 1000).and_return(@target)
-      @wall_merger.should_receive(:place_onto).once.with(0, 0,    @im_one, @target)
-      @wall_merger.should_receive(:place_onto).once.with(1000, 0, @im_two, @target)
+      @wall_merger.should_receive(:prepare_backdrop).once.with({'width_one'  => 1000,
+                                                                'width_two'  => 1000,
+                                                                'height_one' => 1000,
+                                                                'height_two' => 1000,
+                                                                'color'      => 'black'}).and_return(@target)
+      @wall_merger.should_receive(:place_through).once.with(0,    0, 1000, 1000, @im_one, @target)
+      @wall_merger.should_receive(:place_through).once.with(1000, 0, 1000, 1000, @im_two, @target)
       @wall_merger.merge("42", "39", {'width_one' => 1000, 'width_two' =>1000, 'height_one' => 1000, 'height_two' => 1000})
     end
 
@@ -43,35 +51,6 @@ describe WallMerger do
       setup(['images', 'size', 'place'])
       @wall_merger.should_receive(:save_image).once.with(@target, "garpley_title")
       @wall_merger.merge("42", "39", {'title' => "garpley_title"})
-    end
-
-    it "should rightward shift thin images" do
-      setup(['size', 'write'])
-      stub_size(@im_one, 1520, 1200)
-      stub_size(@im_two, 1760, 1200)
-      @wall_merger.should_receive(:place_onto).once.with(200, 0,  @im_one, @target)
-      @wall_merger.should_receive(:place_onto).once.with(2000, 0, @im_two, @target)
-      @wall_merger.merge("42", "39")
-    end
-
-    it "should downward shift short images" do
-      setup(['size', 'write'])
-      stub_size(@im_one, 1920, 1000)
-      stub_size(@im_two, 1920, 800)
-      @wall_merger.should_receive(:place_onto).once.with(0, 100, @im_one, @target)
-      @wall_merger.should_receive(:place_onto).once.with(1920, 200, @im_two, @target)
-      @wall_merger.merge("42", "39")
-    end
-
-    it "should scale and shift overall small images" do
-      setup(['size', 'write'])
-      # original im_one, 192, 240. Scale factor = 5
-      # original im_two, 96, 30. Scale factor = 20
-      stub_size(@im_one, 960, 1200) # Scale is too Tall -- should rightward shift
-      stub_size(@im_two, 1920, 600)  # Scale is too Wide -- should downward shift
-      @wall_merger.should_receive(:place_onto).once.with(480, 0, @im_one, @target)
-      @wall_merger.should_receive(:place_onto).once.with(1920, 300, @im_two, @target)
-      @wall_merger.merge("42", "39")
     end
   end
 end

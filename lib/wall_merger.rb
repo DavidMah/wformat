@@ -11,12 +11,17 @@ class WallMerger
     width_two  = options['width_two']  || 1920
     height_one = options['height_one'] || 1200
     height_two = options['height_two'] || 1200
+    color      = options['color']      || 'black'
     title      = options['title']      || "#{File.basename(image_one, ".jpg")} and #{File.basename(image_two, ".jpg")}.jpg"
 
     # prepare image will retrieve the image and scale it
     im_one = prepare_image(image_one, width_one, height_one)
     im_two = prepare_image(image_two, width_two, height_two)
-    result = prepare_backdrop(width_one, height_one, width_two, height_two)
+    result = prepare_backdrop({'width_one'  => width_one,
+                               'width_two'  => width_two,
+                               'height_one' => height_one,
+                               'height_two' => height_two,
+                               'color'      => color})
 
     # place through will drop the image onto the target with shifting
     place_through(0, 0, width_one, height_one, im_one, result)

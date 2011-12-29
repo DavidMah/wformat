@@ -1,8 +1,8 @@
 Gem::Specification.new do |g|
   g.name        = 'wformat'
-  g.version     = '0.3.1'
+  g.version     = '0.3.2'
   g.executables << 'wformat'
-  g.date        = '2011-12-28'
+  g.date        = '2011-12-29'
 
   g.summary     = "wformat is a command line utility to organize collections of wallpapers"
 

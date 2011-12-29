@@ -45,6 +45,10 @@ optparse = OptionParser.new do |opts|
     options['title'] = title
   end
 
+  opts.on('--color=COLOR', "Backdrop color") do |color|
+    options['color'] = color
+  end
+
   opts.on('--trace', "Provide stack trace when error occurs") do
     options['trace'] = true
   end

@@ -23,8 +23,13 @@ module WallOperations
     end
   end
 
-  def prepare_backdrop(width_one, height_one, width_two = 0, height_two = 0)
-    Image.new(width_one + width_two, [height_one, height_two].max) { self.background_color = 'black'}
+  def prepare_backdrop(options = {})
+    color      = options['color']  || 'black'
+    width_one  = options['width']  || options['width_one']  || 1920
+    height_one = options['height'] || options['height_one'] || 1200
+    width_two  = options['width_two']  || 0
+    height_two = options['height_two'] || 0
+    Image.new(width_one + width_two, [height_one, height_two].max) { self.background_color = color}
   end
 
   # Places image on target, also applying rightward or downward shift to given coordinates based on bounds
