@@ -17,7 +17,7 @@ Gem::Specification.new do |g|
   g.email    = "mahhaha@gmail.com"
   g.files    = ["lib/wformat.rb", "lib/wall_interface.rb",
                 "lib/wall_operations.rb",
-                "lib/wall_merger.rb", "lib/wall_scaler.rb"]
+                "lib/wall_merger.rb", "lib/wall_scaler.rb", "lib/wall_dupe_finder.rb"]
   g.homepage = "https://github.com/DavidMah/wformat"
   g.add_runtime_dependency 'rmagick', '~> 2.13'
 end
