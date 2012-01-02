@@ -3,6 +3,8 @@ include Magick
 
 class WallDupeFinder
 
+  IMAGE_TYPES = ['.gif', '.jpg', '.jpeg', '.png']
+
   def find_dupes(directory = ".")
     # Get all Images
     # Hash All Images
@@ -12,8 +14,16 @@ class WallDupeFinder
   end
 
   # Returns an array of ImageLists of images from files in given directory
-  def get_images(directory)
-    []
+  def get_images(target, path = ".")
+    if File.file?(target)
+      # Avoid non image files
+      (IMAGE_TYPES.include?(File.extname(target.downcase)) ? [File.join(path, target)] : [])
+    else
+      Dir.entries(target).map do |entry|
+        # Avoid hidden folders, `.`, and `..`
+        (entry[0] != "." ? get_images(entry, File.join(path, target)) : [])
+      end.flatten
+    end
   end
 
   # Returns an array of image hashes of images from given array
