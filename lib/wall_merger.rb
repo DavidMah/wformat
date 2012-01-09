@@ -12,7 +12,7 @@ class WallMerger
     height_one = options['height_one'] || 1200
     height_two = options['height_two'] || 1200
     color      = options['color']      || 'black'
-    title      = options['title']      || "#{File.basename(image_one, ".jpg")} and #{File.basename(image_two, ".jpg")}.jpg"
+    title      = options['title']      || "#{File.basename(image_one, File.extname(image_one))} and #{File.basename(image_two, File.extname(image_two))}.jpg"
 
     # prepare image will retrieve the image and scale it
     im_one = prepare_image(image_one, width_one, height_one)

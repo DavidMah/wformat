@@ -10,7 +10,7 @@ class WallScaler
     width  = options['width']  || 1920
     height = options['height'] || 1200
     color  = options['color']  || 'black'
-    title  = options['title']  || "#{File.basename(image, ".jpg")} scaled.jpg"
+    title  = options['title']  || "#{File.basename(image, File.extname(image))} scaled.jpg"
 
     im = prepare_image(image, width, height)
 
