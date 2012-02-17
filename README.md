@@ -44,3 +44,7 @@ Or give the scaled result your own output filename
 ## Dependencies
 
 RMagick(https://rubygems.org/gems/rmagick)
+
+On ubuntu, install ImageMagick dependencies for RMagick:
+
+`sudo apt-get install imagemagick libmagick9-dev`
